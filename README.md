@@ -30,12 +30,13 @@ Zadnja faza je obrana projekta - nakon završetka finalne verzije svoje aplikaci
 
 # Opis projekta
 ## Kratki opis
-Ovdje ide opis projekta
+Ideja je napraviti online stranicu knjižnice. Dakle da bude prijava korisnika u sustav, novih ili već registriranih korisnika. Svakom korisinku će biti vidljiv popis knjiga koje ima posuđene, kada su posuđene i do kada se trebaju vratiti. Korisnici će moći vidjeti koje su sve knjige dosupne na online posudbu, te ukoliko je knjiga dostupna , moći će posuditi. 
 ## Tehnologije
 1. Frontend
 2. Backend
 3. Baza
 ## Popis funkcionalnosti
-1. a
-2. b
-3. c
+1. Prijava starih korisnika i registarcija novih
+2. Prikaz svih knjiga dostupnih za online posudbu
+3. Online posudba knjiga
+4. Prikaz posuđenih knjiga
