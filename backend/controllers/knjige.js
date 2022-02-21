@@ -3,7 +3,7 @@ const knjigeRouter=express.Router();
 const Knjiga=require('../models/knjige')
 
 
-
+//dohvacanje svih
 knjigeRouter.get('/', (req, res) => {
   console.log(knjigeRouter)
   Knjiga.find({}).then(rezultat => {    
@@ -11,7 +11,7 @@ knjigeRouter.get('/', (req, res) => {
   })
 })
 
-
+//dohvacanje jednog
 knjigeRouter.get('/:id', (req, res, next) => {
     Knjiga.findById(req.params.id)
       .then(knjiga => {

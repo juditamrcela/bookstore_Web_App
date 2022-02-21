@@ -1,17 +1,19 @@
 # Evidencija aktivnosti
 
-## 06.11.2020.
+## 17.02.2022.
 Pocetak | Kraj
 ------- | ----
-14:15   | 18:00
+15:00   | 18:30
 ### Kratki opis promjena
 Definirani zahtjevi aplikacije.
 Dovršena prva faza projekta.
+Napravljena početna verzija backenda.
 
 
-## 22.12.2021.
+## 21.01.2022.
 Pocetak | Kraj
 ------- | ----
-14:15   | 15:15
+12:00   | 18:30
 ### Kratki opis promjena
-Održano predavanje o projektu
+Izrada pocetnog izgleda aplikcije.
+
