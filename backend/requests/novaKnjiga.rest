@@ -1,0 +1,9 @@
+POST http://localhost:3001/api/knjige
+
+Content-Type: application/json
+
+{
+    "posudeno": " ",
+    "naslov": "How emotions are made",
+    "autor" : "Lisa Feldman Barett"
+}

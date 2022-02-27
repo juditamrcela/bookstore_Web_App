@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+//schema
 const knjigaSchema = new mongoose.Schema({
   posudeno: {
     type: Date,
@@ -8,7 +8,7 @@ const knjigaSchema = new mongoose.Schema({
   grada: {
     type: String,
     minlength: 5,
-    required: true
+    //required: true
   },
   naslov: {
     type: String,
@@ -29,5 +29,5 @@ knjigaSchema.set('toJSON', {
     return ret
   }
 })
-
+//model
 module.exports = mongoose.model('Knjiga', knjigaSchema, 'knjige')

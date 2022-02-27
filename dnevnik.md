@@ -10,10 +10,10 @@ Dovršena prva faza projekta.
 Napravljena početna verzija backenda.
 
 
-## 21.01.2022.
+## 27.02.2022.
 Pocetak | Kraj
 ------- | ----
-12:00   | 18:30
+15:00   | 19:00
 ### Kratki opis promjena
-Izrada pocetnog izgleda aplikcije.
+Izrada baze i spajanje s bazom.
 

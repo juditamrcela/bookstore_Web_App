@@ -9,7 +9,7 @@ const mongoose = require('mongoose')
 
 console.log("Tu")
 logger.info('Spajam se na', config.DB_URI)
-
+//spajanje na bazu
 mongoose.connect(config.DB_URI,)
 .then(result => {
   logger.info("Spojeni smo na bazu");

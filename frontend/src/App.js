@@ -18,6 +18,14 @@ const App = (props)=> {
       .then(res => postaviKnjigu(res.data))
     
     }, [])//prilikom renderirianja
+
+    useEffect(() => {
+      console.log('Effect');
+  
+      knjigaAkcije.dohvatiSve().then((response) => {
+        postaviKnjigu(response.data);
+      });
+    }, []);
     return(
       <div>
           <h1>Knjige</h1>
