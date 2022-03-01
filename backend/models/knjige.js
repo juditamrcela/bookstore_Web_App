@@ -19,6 +19,10 @@ const knjigaSchema = new mongoose.Schema({
     minlength: 5,
     required: true
   },
+  korisnik:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref: 'Korisnik'
+  }
 })
 
 knjigaSchema.set('toJSON', {

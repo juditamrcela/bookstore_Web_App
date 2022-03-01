@@ -40,8 +40,8 @@ knjigeRouter.get('/:id', (req, res, next) => {
     const knjiga = new Knjiga({
         posudeno: new Date(),
         grada: podatak.grada,
-        autor: podatak.autor,
-        naslov:podatak.naslov
+        naslov:podatak.naslov,
+        autor: podatak.autor
       })
   
       Knjiga.findByIdAndUpdate(id,knjiga, {new: true})
@@ -58,8 +58,8 @@ knjigeRouter.get('/:id', (req, res, next) => {
     const knjiga = new Knjiga({
         posudeno: new Date(),
         grada: podatak.grada,
-        autor: podatak.autor,
-        naslov:podatak.naslov
+        naslov:podatak.naslov,
+        autor: podatak.autor
     })
   
     knjiga.save()
@@ -67,6 +67,8 @@ knjigeRouter.get('/:id', (req, res, next) => {
       res.json(spremljenaKnjiga)
     })
     .catch(err => next(err))
+    //const spremljenaKnjiga=await knjiga.save()
+    //res.json(spremljenaKnjiga)
   })
   
   module.exports = knjigeRouter

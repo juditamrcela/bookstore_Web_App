@@ -1,9 +1,10 @@
 POST http://localhost:3001/api/knjige
-
-Content-Type: application/json
+content-Type: application/json
 
 {
     "posudeno": " ",
-    "naslov": "How emotions are made",
-    "autor" : "Lisa Feldman Barett"
+    "grada": "Gradska knjiznica Marka Marulica",
+    "naslov": "Žene koje trće s vukovima",
+    "autor": "Clarissa Pinkola Estes"
+    
 }

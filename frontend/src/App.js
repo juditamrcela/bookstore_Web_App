@@ -44,7 +44,7 @@ const App = (props)=> {
               </thead>
               <tbody>
                   {knjiga.map(k=>
-                    <Knjiga key={k.id} posudena={k.posudena} grada={k.grada} naslov={k.naslov}  autor={k.autor}
+                    <Knjiga key={k.id} posudena={k.posudena} grada={k.grada} naslov={k.naslov} autor={k.autor}
                     
                     />)}
               </tbody>

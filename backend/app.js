@@ -3,11 +3,12 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const knjigeRouter = require('./controllers/knjige')
+const korisniciRouter = require('./controllers/korisnici')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 const mongoose = require('mongoose')
 
-console.log("Tu")
+
 logger.info('Spajam se na', config.DB_URI)
 //spajanje na bazu
 mongoose.connect(config.DB_URI,)
@@ -23,6 +24,8 @@ app.use(express.static('build'))
 app.use(middleware.zahtjevInfo)
 
 app.use('/api/knjige', knjigeRouter)
+//izrada rute za korisnika
+app.use('/api/korisnici',korisniciRouter)
 
 app.use(middleware.nepoznataRuta)
 app.use(middleware.errorHandler)
