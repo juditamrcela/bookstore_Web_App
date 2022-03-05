@@ -1,14 +1,15 @@
 const express = require('express');
 const knjigeRouter=express.Router();
 const Knjiga=require('../models/knjige')
+const Korisnik=require('../models/korisnik')
 
 
 //dohvacanje svih
-knjigeRouter.get('/', (req, res) => {
+knjigeRouter.get('/', async (req, res) => {
   console.log(knjigeRouter)
-  Knjiga.find({}).then(rezultat => {    
-    res.json(rezultat)
-  })
+  const knjige = await Knjiga.find({})
+    .populate('korisnik', { username: 1, ime: 1 })
+  res.json(knjige)
 })
 
 //dohvacanje jednog
@@ -52,23 +53,23 @@ knjigeRouter.get('/:id', (req, res, next) => {
   
   })
   
-  knjigeRouter.post('/', (req, res, next) => {
+  knjigeRouter.post('/', async (req, res, next) => {
     const podatak = req.body
+    const logKorisnik=await Korisnik.findById(podatak.korisnik)
   
     const knjiga = new Knjiga({
         posudeno: new Date(),
         grada: podatak.grada,
         naslov:podatak.naslov,
-        autor: podatak.autor
+        autor: podatak.autor,
+        korisnik:logKorisnik._id
     })
   
-    knjiga.save()
-    .then(spremljenaKnjiga=> {
-      res.json(spremljenaKnjiga)
-    })
-    .catch(err => next(err))
-    //const spremljenaKnjiga=await knjiga.save()
-    //res.json(spremljenaKnjiga)
+   
+    const spremljenaKnjiga=await knjiga.save()
+    logKorisnik.knjige=logKorisnik.knjige.concat(spremljenaKnjiga._id)
+    await logKorisnik.save()
+    res.json(spremljenaKnjiga)
   })
   
   module.exports = knjigeRouter

@@ -4,7 +4,8 @@ content-Type: application/json
 {
     "posudeno": " ",
     "grada": "Gradska knjiznica Marka Marulica",
-    "naslov": "Žene koje trće s vukovima",
-    "autor": "Clarissa Pinkola Estes"
+    "naslov": "The peoplewatching",
+    "autor": "Desmond Morris",
+    "korisnik":"6223882cbe4909e3ad9f8d49"
     
 }

@@ -10,8 +10,8 @@ const korisnikSchema=new mongoose.Schema({
     passHash:String,
     knjige:[
         {
-            type:mongoose.Schema.Types.ObjectId,//niz objekata
-            ref:'Knjiga'//mongoos koristi kao referencu
+            type: mongoose.Schema.Types.ObjectId,//niz objekata
+            ref: 'Knjiga'//mongoos koristi kao referencu
         }
     ]
 
@@ -23,8 +23,7 @@ korisnikSchema.set('toJSON',{
         ret.id=ret._id.toString()
         delete ret._id
         delete ret.__v
-        //kada saljemo sa servera podataka nece se vidjeti hash
-        delete ret.passHash
+        delete ret.passHash//kada saljemo sa servera podataka nece se vidjeti hash
         return ret
     }
 })

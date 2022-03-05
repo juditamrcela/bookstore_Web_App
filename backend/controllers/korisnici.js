@@ -3,11 +3,10 @@ const Korisnik = require('../models/korisnik')
 const bcrypt=require('bcrypt')
 const { run } = require('jest')
 
-korisniciRouter.get('/', (req, res) => {
+korisniciRouter.get('/', async (req, res) => {
     console.log(korisniciRouter)
-    Korisnik.find({}).then(rezultat => {    
-      res.json(rezultat)
-    })
+    const korisnici=await Korisnik.find({}).populate('knjige',{naslov:1,autor:1})
+    res.json(korisnici)
 })
 
 korisniciRouter.post('/', async (req,res)=>{

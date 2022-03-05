@@ -18,7 +18,7 @@ Pocetak | Kraj
 ### Kratki opis promjena
 Izrada baze i spajanje s bazom.
 
-## 01.02.2022.
+## 01.03.2022.
 Pocetak | Kraj
 ------- | ----
 15:00   | 19:30
@@ -26,3 +26,11 @@ Pocetak | Kraj
 Ispravak backend 
 Pocetak autorizacije korisnika
 Napravljen model korisnik
+
+## 05.03.2022.
+Pocetak | Kraj
+------- | ----
+16:00   | 18:30
+### Kratki opis promjena
+Dovršavanje autorizacije korisnika
+Napravljen controller login
