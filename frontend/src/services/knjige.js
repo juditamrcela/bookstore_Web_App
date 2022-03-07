@@ -1,13 +1,25 @@
 import axios from 'axios';
 //akcije s knjigama
 const osnovniUrl = 'http://localhost:3001/api/knjige'
- 
-const dohvatiSve = () => {   
-    return axios.get(osnovniUrl);
+
+let token = null
+const postaviToken = (noviToken) => {
+    token = `bearer ${noviToken}`
 }
  
-const stvori = noviObjekt => {
-    return axios.post(osnovniUrl, noviObjekt)
+const dohvatiSve = () => {   
+    const config = {
+        headers: {Authorization: token}
+    }
+    return axios.get(osnovniUrl,config);
+}
+ 
+const stvori = async noviObjekt => {
+    const config = {
+        headers: {Authorization: token}
+    }
+    const odgovor = await axios.post(osnovniUrl, noviObjekt, config)
+    return odgovor
 }
  
 const osvjezi = (id, noviObjekt) => {
@@ -15,7 +27,10 @@ const osvjezi = (id, noviObjekt) => {
 }
 
 const brisi = id => {
-    return axios.delete(`${osnovniUrl}/${id}`)
+    const config = {
+        headers: {Authorization: token}
+    }
+    return axios.delete(`${osnovniUrl}/${id}`, config)
 }
  
-export default { dohvatiSve, stvori, osvjezi, brisi}
+export default { dohvatiSve, stvori, osvjezi, brisi, postaviToken}

@@ -34,3 +34,11 @@ Pocetak | Kraj
 ### Kratki opis promjena
 Dovršavanje autorizacije korisnika
 Napravljen controller login
+
+## 06.03.2022.
+Pocetak | Kraj
+------- | ----
+15:00   | 17:30
+### Kratki opis promjena
+Autentikacija korisnika
+

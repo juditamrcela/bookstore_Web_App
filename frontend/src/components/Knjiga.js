@@ -3,7 +3,7 @@ import React from 'react'
 const Knjiga = (props)=>{
     return(
         <tr>
-             <td>{props.posudeno}</td>
+            <td>{props.posudeno}</td>
             <td>{props.grada}</td>
             <td>{props.naslov}</td>
             <td>{props.autor}</td>

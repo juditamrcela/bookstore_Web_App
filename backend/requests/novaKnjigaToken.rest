@@ -1,0 +1,12 @@
+POST http://localhost:3001/api/knjige
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1Hb2xlbSIsImlkIjoiNjIyNjFjN2Q0MmEyYWY4Y2JiNWJlODIwIiwiaWF0IjoxNjQ2NjY1ODk1fQ.Y0sOprXaS83tTo0HvxG7VtHtCUl1l3iJ17Low9V0h1s
+
+{
+    "posudeno": "",
+    "grada": "Gradska knjiznica Sinj",
+    "naslov": "Da Vinci Code",
+    "autor": "Dan Brown",
+    "korisnik": "62261c7d42a2af8cbb5be820"
+   
+}

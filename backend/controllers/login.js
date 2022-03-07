@@ -24,7 +24,7 @@ loginRouter.post('/', async (req, res) => {
     const token=jwt.sign(userToken,process.env.SECRET)
     res.status(200).send({
         token,username:korisnik.username,ime:korisnik.ime
-        //sajemo ime i user name zbog frontenda
+        //saljemo ime i user name zbog frontenda
     })
 
 })

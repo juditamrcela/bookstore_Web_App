@@ -2,14 +2,16 @@ import React, {useState, useEffect} from 'react';
 import Knjiga from './components/Knjiga';
 import axios from 'axios'
 import './App.css'
-
-import knjigaAkcije from './services/knjige.js'
+import LoginForma from './components/LoginForma';
+import knjigaAkcije from './services/knjige.js';
+import NovaKnjiga from './components/NovaKnjiga';
 
 const App = (props)=> {
    const [ knjiga, postaviKnjigu ] = useState([])
     const [ grada, postaviGradu ] = useState('')
     const [ naslov, postaviNaslov ] = useState('')
     const [ autor, postaviAutor ] = useState('')
+    const [korisnik, postaviKorisnika] = useState(null);
     //komunikacija s posluziteljem-GET;dohvati sve knjige
     useEffect( () => {
 	
@@ -26,10 +28,39 @@ const App = (props)=> {
         postaviKnjigu(response.data);
       });
     }, []);
+    useEffect(() => {
+      const logiraniKorisnikJSON = window.localStorage.getItem(
+        "prijavljeniKorisnik"
+      );
+      if (logiraniKorisnikJSON) {
+        const korisnik = JSON.parse(logiraniKorisnikJSON);
+        postaviKorisnika(korisnik);
+        knjigaAkcije.postaviToken(korisnik.token);
+      }
+    }, []);
+    const loginForma=()=>{
+      return(
+        <LoginForma/>
+      )
+    }
+    const novaKnjiga=()=>(
+      <NovaKnjiga
+        spremiKnjigu={novaKnjiga}
+        />
+    )
     return(
       <div>
+
+        
           <h1>Knjige</h1>
-          
+          {korisnik === null ? (
+            loginForma()
+          ) : (
+            <div>
+              <p>Prijavljeni ste kao {korisnik.ime}</p>
+              {novaKnjiga()}
+            </div>
+      )}
      
           
           <table>
