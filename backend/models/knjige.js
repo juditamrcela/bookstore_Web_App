@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const knjigaSchema = new mongoose.Schema({
   posudeno: {
     type: Date,
-    required: true
+    //required: true
   },
   grada: {
     type: String,

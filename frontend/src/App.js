@@ -6,11 +6,12 @@ import LoginForma from './components/LoginForma';
 import knjigaAkcije from './services/knjige.js';
 import NovaKnjiga from './components/NovaKnjiga';
 
+
 const App = (props)=> {
    const [ knjiga, postaviKnjigu ] = useState([])
-    const [ grada, postaviGradu ] = useState('')
-    const [ naslov, postaviNaslov ] = useState('')
-    const [ autor, postaviAutor ] = useState('')
+    // const [ grada, postaviGradu ] = useState('')
+    // const [ naslov, postaviNaslov ] = useState('')
+    // const [ autor, postaviAutor ] = useState('')
     const [korisnik, postaviKorisnika] = useState(null);
     //komunikacija s posluziteljem-GET;dohvati sve knjige
     useEffect( () => {
@@ -19,7 +20,7 @@ const App = (props)=> {
     
       .then(res => postaviKnjigu(res.data))
     
-    }, [])//prilikom renderirianja
+    }, [])//jednom prilikom prvog renderirianja komponente
 
     useEffect(() => {
       console.log('Effect');
@@ -38,11 +39,28 @@ const App = (props)=> {
         knjigaAkcije.postaviToken(korisnik.token);
       }
     }, []);
+   
+      const brisiKnjigu = (id) => {
+        knjigaAkcije.brisi(id).then((response) => {
+          console.log(response);
+          postaviKnjigu(knjiga.filter((k) => k.id !== id));
+        });
+      };
+   
+    // const urediKnjigu =(id) =>{
+    //   knjigaAkcije.osvjezi(id, modKnjiga).then((response) => {
+    //     console.log(response);
+    //     postaviKnjigu(knjiga.map((p) => (p.id !== id ? p : response.data)));
+    //   });
+    // }
+   
+    	
     const loginForma=()=>{
       return(
         <LoginForma/>
       )
     }
+    
     const novaKnjiga=()=>(
       <NovaKnjiga
         spremiKnjigu={novaKnjiga}
@@ -75,7 +93,16 @@ const App = (props)=> {
               </thead>
               <tbody>
                   {knjiga.map(k=>
-                    <Knjiga key={k.id} posudena={k.posudena} grada={k.grada} naslov={k.naslov} autor={k.autor}
+                    <Knjiga 
+                    key={k.id} 
+                    //knjiga={k}
+                    posudena={k.posudeno} 
+                    grada={k.grada} 
+                    naslov={k.naslov} 
+                    autor={k.autor}
+                    
+                    brisi={()=>brisiKnjigu(k.id)}
+                    //urediKnjigu={()=>urediKnjigu(k.id)}
                     
                     />)}
               </tbody>

@@ -19,7 +19,8 @@ korisniciRouter.post('/', async (req,res)=>{
         username: sadrzaj.username,
         ime: sadrzaj.ime,
         passHash: passHash,//u bazu ne spremamo sifru,ona je kriptirana
-        knjige: []//i ne treba nam
+        _id:sadrzaj._id
+       
     })
 
     const spremiKorisnik=await korisnik.save()

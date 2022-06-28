@@ -16,14 +16,14 @@ const korisnikSchema=new mongoose.Schema({
     ]
 
 })
-korisnikSchema.plugin(uniqueValidator)
+//korisnikSchema.plugin(uniqueValidator)
 //mijenjam funkciju toJSON
 korisnikSchema.set('toJSON',{
     transform:(doc,ret)=>{
         ret.id=ret._id.toString()
         delete ret._id
         delete ret.__v
-        delete ret.passHash//kada saljemo sa servera podataka nece se vidjeti hash
+        delete ret.passHash//kada saljemo sa servera podatak nece se vidjeti hash
         return ret
     }
 })
