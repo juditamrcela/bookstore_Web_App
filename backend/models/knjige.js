@@ -11,8 +11,8 @@ const knjigaSchema = new mongoose.Schema({
   },
   grada: {
     type: String,
-    minlength: 5
-    //required: true
+    //minlength: 5
+    required: true
   },
   naslov: {
     type: String,

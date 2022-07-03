@@ -1,9 +1,9 @@
 import React, {useState,useEffect} from 'react'
 import Knjiga from './Knjiga.js';
-import LoginForma from './LoginForma.js';
 import knjigaAkcije from '../services/knjige.js';
-import NovaKnjiga from './NovaKnjiga.js';
 import 'bootstrap/dist/css/bootstrap.css'; 
+import '../styles/table.css';
+
 
 const PrikazTablice = ()=> {
     const [ knjiga, postaviKnjigu ] = useState([])
@@ -49,9 +49,8 @@ const PrikazTablice = ()=> {
        const brisiKnjigu = (id) => {
          try{
            knjigaAkcije.brisi(id).then((response) => {
-             console.log(response);
              postaviKnjigu(knjiga.filter((k) => k.id !== id));
-           });
+           }).then(response=>{setfilter(filter.filter(k=>k.id!==id))})
          }
          catch(exception){
            alert("Mozete brisati samo vlastite knjige!");
@@ -63,6 +62,8 @@ const PrikazTablice = ()=> {
        const nadiKnjigu=knjiga.find(k=>k.id===id)
        let prijeProduzi=nadiKnjigu.produziti;
        let novaProduziti=prompt('Produziti {nadiKnjigu.produziti} :?')
+       novaProduziti=novaProduziti.toLowerCase;
+       novaProduziti=novaProduziti==="da" ? true : false;
        const modKnjiga ={
          ...nadiKnjigu,
          produziti:novaProduziti===null ? prijeProduzi : novaProduziti
@@ -85,15 +86,8 @@ const PrikazTablice = ()=> {
      }, [knjiga])
     
          
-    //  const loginForma=()=>{
-    //    return(
-    //      <LoginForma/>
-    //    )
-    //  }
+    
      
-     const novaKnjiga=()=>(
-       <NovaKnjiga/>
-     )
      return(
        <div>
  
@@ -105,15 +99,15 @@ const PrikazTablice = ()=> {
              <>
                 <div>
                     <p>Prijavljeni ste kao {korisnik.ime}</p>
-                     {novaKnjiga()}
+                     
                  </div>
                  <div>
-                    <button classname='btn btn-secondary' value='Gradska knjiznica Marka Marulica' onClick={()=>Filtracija("Gradska knjiznica Marka Marulica")}>Filtriraj prema Knjiznici Marka Marulica</button>
-                    <button classname='btn btn-secondary' value='Gradska knjiznica Sinj' onClick={()=>Filtracija("Gradska knjiznica Sinj")}>Filtriraj prema Knjiznici Sinj</button>
-                    <button classname='btn btn-secondary' value='Gradska knjiznica Solin' onClick={()=>Filtracija("Gradska knjiznica Solin")}>Filtriraj prema Knjiznici Solin</button>
-                    <button classname='btn btn-secondary' value='Svi' onClick={()=>Filtracija("Svi")}>Svi</button>
+                    <button className='btn btn-secondary' value='Gradska knjiznica Marka Marulica' onClick={()=>Filtracija("Gradska knjiznica Marka Marulica")}>Filtriraj prema Knjiznici Marka Marulica</button>
+                    <button className='btn btn-secondary' value='Gradska knjiznica Sinj' onClick={()=>Filtracija("Gradska knjiznica Sinj")}>Filtriraj prema Knjiznici Sinj</button>
+                    <button className='btn btn-secondary' value='Gradska knjiznica Solin' onClick={()=>Filtracija("Gradska knjiznica Solin")}>Filtriraj prema Knjiznici Solin</button>
+                    <button className='btn btn-secondary' value='Svi' onClick={()=>Filtracija("Svi")}>Svi</button>
                  </div>
-                 <table>
+                 <table class='container'>
                     <thead>
                         <tr>
                             <th className="th">POSUDENA</th>

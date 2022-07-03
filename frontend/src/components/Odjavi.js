@@ -8,10 +8,10 @@ const LoginStr = (props) =>{
       const prijavljeniKorisnikJSON = localStorage.getItem("prijavljeniKorisnik");
       const value = JSON.parse(prijavljeniKorisnikJSON);
       postaviKorisnika(value)
-    },[])
+    },[korisnik])
     
    const logout=()=>{
-    sessionStorage.clear();
+    localStorage.clear();
    }
       return (
           <div>

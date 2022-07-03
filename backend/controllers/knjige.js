@@ -103,23 +103,25 @@ knjigeRouter.get('/:id', async (req, res, next) => {
     res.status(204).end()
   })
   
-  knjigeRouter.put('/:id', (req, res) => {
+  knjigeRouter.put('/:id', (req, res, next) => {
     const podatak = req.body
     const id = req.params.id
-    
+   
+   
     const knjiga = new Knjiga({
+        _id:id,
         posudeno: new Date(),
         vracanje: new Date(),
         grada: podatak.grada,
         naslov:podatak.naslov,
         autor: podatak.autor,
         produziti: podatak.produziti,
-        korisnik:logKorisnik._id
+        
        
         
       })
   
-      Knjiga.findByIdAndUpdate(id,knjiga, {new: true})
+     Knjiga.findByIdAndUpdate(id,knjiga, {new: true})
     .then( novaKnjiga => {
       res.json(novaKnjiga)
     })
@@ -131,6 +133,7 @@ knjigeRouter.get('/:id', async (req, res, next) => {
     
     const podatak = req.body
     const token=dohvatiToken(req)
+    console.log(token)
     const dekodiraniToken=jwt.verify(token,process.env.SECRET)
     if(!token || !dekodiraniToken.id){
       return res.status(401).json({error:"Neispravni token"})
@@ -138,7 +141,8 @@ knjigeRouter.get('/:id', async (req, res, next) => {
     //pronaden u bazi
     const logKorisnik=await Korisnik.findById(dekodiraniToken.id)
     console.log(logKorisnik)
-    const knjiga = new Knjiga({
+    if(logKorisnik){
+      const knjiga = new Knjiga({
         posudeno: new Date(),
         vracanje: new Date(),
         grada: podatak.grada,
@@ -146,27 +150,35 @@ knjigeRouter.get('/:id', async (req, res, next) => {
         autor: podatak.autor,
         produziti: podatak.produziti,
         korisnik:logKorisnik._id
-        
-        
-        
-    })
-    console.log(knjiga)
-    if(!podatak.naslov){
-      return res.status(400).json({
-        error:'Nedostaje naslov knjige'
       })
+      console.log(knjiga)
+      if(!podatak.naslov){
+        return res.status(400).json({
+          error:'Nedostaje naslov knjige'
+        })
+      }
+      if(!podatak.autor){
+        return res.status(400).json({
+          error:'Nedostaje autor'
+       })
+      }
+      if(!podatak.grada){
+        return res.status(400).json({
+          error:'Nedostaje grada'
+       })
+      }
+      const spremljenaKnjiga=await knjiga.save()
+      console.log(spremljenaKnjiga)
+      logKorisnik.knjige=logKorisnik.knjige.concat(spremljenaKnjiga._id)
+      console.log(logKorisnik)
+      await logKorisnik.save()
+      res.json(spremljenaKnjiga)
+
+    }else{
+      res.status(400).json({error:"Morate se prijaviti"})
     }
-    if(!podatak.autor){
-      return res.status(400).json({
-        error:'Nedostaje autor'
-      })
-    }
-    const spremljenaKnjiga=await knjiga.save()
-    console.log(spremljenaKnjiga)
-    logKorisnik.knjige=logKorisnik.knjige.concat(spremljenaKnjiga._id)
-    console.log(logKorisnik)
-    await logKorisnik.save()
-    res.json(spremljenaKnjiga)
+    
+    
   
     
   })

@@ -23,6 +23,7 @@ const stvori = async noviObjekt => {
 }
  
 const osvjezi = (id, noviObjekt) => {
+    
     return axios.put(`${osnovniUrl}/${id}`, noviObjekt)
 }
 
