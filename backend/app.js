@@ -23,6 +23,8 @@ app.use(cors())
 app.use(express.json())
 app.use(express.static('build'))
 app.use(middleware.zahtjevInfo)
+
+
 //izrada rute za knjige
 app.use('/api/knjige', knjigeRouter)
 //izrada rute za korisnika

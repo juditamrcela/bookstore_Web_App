@@ -1,10 +1,23 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState,useEffect} from 'react';
 import prijavaAkcije from '../services/login';
 import knjigaAkcija from '../services/knjige';
+import Form from "react-bootstrap/Form"
+import Button from "react-bootstrap/Button"
 const LoginForma = () =>{
   const [username, postaviUsername] = useState("");
   const [pass, postaviPass] = useState("");
-  const [korisnik, postaviKorisnika] = useState(null);
+  const [korisnik, postaviKorisnika] = useState();
+
+
+  useEffect(()=>{
+    const logiraniKorisnikJSON = localStorage.getItem("prijavljeniKorisnik");
+    const value = JSON.parse(logiraniKorisnikJSON);
+    postaviKorisnika(value)
+    //knjigaAkcija.postaviToken(korisnik.token)
+  },[])
+  window.onload=function(){
+    localStorage.removeItem('prijavljeniKorisnik');
+  }
 
   const userLogin = async (e) => {
     e.preventDefault();
@@ -24,31 +37,28 @@ const LoginForma = () =>{
       console.log(korisnik);
     } catch (exception) {
       alert("Neispravni podaci");
+      
     }
   };
   return(
-  
-  <form onSubmit={userLogin}>
-    <div>
-      Korisničko ime:
-      <input
-        type="text"
-        value={username}
-        name="Username"
-        onChange={(e)=>postaviUsername(e.target.value)}
-      />
-    </div>
-    <div>
-      Lozinka:
-      <input
-        type="password"
-        value={pass}
-        name="Pass"
-        onChange={(e)=>postaviPass(e.target.value)}
-      />
-    </div>
-    <button type="submit">Prijava</button>
-  </form>
-)};
+    <div className="container">
+    {(korisnik===null)?(
+       <Form onSubmit={userLogin}>
+       
+       <Form.Group className="mb-3" controlId="formBasicEmail">
+           <Form.Label>Username: </Form.Label>
+           <Form.Control type="text" value={username} name="Username" placeholder="username" className="form-control" onChange={(e)=>postaviUsername(e.target.value)} ></Form.Control>
+         </Form.Group>
+         <Form.Group className="mb-3" controlId="formBasicPassword">
+           <Form.Label>Password: : </Form.Label>
+           <Form.Control type="password" value={pass} name="Pass" placeholder="password" className="form-control" onChange={(e)=>postaviPass(e.target.value)}></Form.Control>
+         </Form.Group>
+         <Button className="button-primary" type="submit" id="loginButton">Prijava</Button>
+         
+       </Form>):(
+         <h2>Dobro došli {username} </h2>
+       )}
+ </div>
+)}
 
 export default LoginForma;

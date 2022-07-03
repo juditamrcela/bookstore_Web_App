@@ -1,12 +1,15 @@
 POST http://localhost:3001/api/knjige
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1Hb2xlbSIsImlkIjoiNjIyNjFjN2Q0MmEyYWY4Y2JiNWJlODIwIiwiaWF0IjoxNjQ2NzQ5ODM0fQ.hs7-tGlwXWX29RTn4ZnBdrXJ_b7B5cdy5RkkZYK2UCo
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1Hb2xlbSIsImlkIjoiNjJiYzdmNWEyODJmNjQxZTBhZmViMDQ3IiwiaWF0IjoxNjU2NTIwNTUxfQ.Ds7W1pHAbBJaB1UFZwGrVZwa1L0sSLQfEv4eMsxrenw
 
 {
     "posudeno": "",
+    "vracanje":"",
     "grada": "Gradska knjiznica Sinj",
-    "naslov": "Emotional Intelligence",
-    "autor": "Daniel Goleman",
-    "korisnik": "62261c7d42a2af8cbb5be820"
+    "naslov": "Druzba Pere Kvržice",
+    "autor": "bla bla",
+    "produziti": true,
+    "korisnik": "62bc7f5a282f641e0afeb047"
+    
    
 }

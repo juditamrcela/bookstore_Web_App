@@ -2,12 +2,16 @@ const mongoose = require('mongoose')
 //schema
 const knjigaSchema = new mongoose.Schema({
   posudeno: {
-    type: Date,
+    type: Date
     //required: true
+  },
+  vracanje:{
+    type: Date
+
   },
   grada: {
     type: String,
-    minlength: 5,
+    minlength: 5
     //required: true
   },
   naslov: {
@@ -19,10 +23,17 @@ const knjigaSchema = new mongoose.Schema({
     minlength: 5,
     required: true
   },
+  produziti:{
+    type:Boolean,
+    defalut: false
+
+  },
   korisnik:{
     type:mongoose.Schema.Types.ObjectId,
     ref: 'Korisnik'
   }
+  
+  
 })
 
 knjigaSchema.set('toJSON', {

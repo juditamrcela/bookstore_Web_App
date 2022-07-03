@@ -1,116 +1,48 @@
 import React, {useState, useEffect} from 'react';
-import Knjiga from './components/Knjiga';
-import axios from 'axios'
-import './App.css'
-import LoginForma from './components/LoginForma';
-import knjigaAkcije from './services/knjige.js';
-import NovaKnjiga from './components/NovaKnjiga';
+import {  BrowserRouter as Router,  Routes,  Route,Link  } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.css';
+import Login from './components/LoginForma';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import Knjiga from './components/NovaKnjiga.js';
+import Home from "./components/Home";
+import NotFound from './components/NotFound.js';
+import Knjige from './components/PrikazTablice.js'
+import Logout from "./components/Odjavi.js";
+import Container from 'react-bootstrap/Container';
 
 
-const App = (props)=> {
-   const [ knjiga, postaviKnjigu ] = useState([])
-    // const [ grada, postaviGradu ] = useState('')
-    // const [ naslov, postaviNaslov ] = useState('')
-    // const [ autor, postaviAutor ] = useState('')
-    const [korisnik, postaviKorisnika] = useState(null);
-    //komunikacija s posluziteljem-GET;dohvati sve knjige
-    useEffect( () => {
-	
-      axios.get("http://localhost:3001/api/knjige")
-    
-      .then(res => postaviKnjigu(res.data))
-    
-    }, [])//jednom prilikom prvog renderirianja komponente
-
-    useEffect(() => {
-      console.log('Effect');
-  
-      knjigaAkcije.dohvatiSve().then((response) => {
-        postaviKnjigu(response.data);
-      });
-    }, []);
-    useEffect(() => {
-      const logiraniKorisnikJSON = window.localStorage.getItem(
-        "prijavljeniKorisnik"
-      );
-      if (logiraniKorisnikJSON) {
-        const korisnik = JSON.parse(logiraniKorisnikJSON);
-        postaviKorisnika(korisnik);
-        knjigaAkcije.postaviToken(korisnik.token);
-      }
-    }, []);
-   
-      const brisiKnjigu = (id) => {
-        knjigaAkcije.brisi(id).then((response) => {
-          console.log(response);
-          postaviKnjigu(knjiga.filter((k) => k.id !== id));
-        });
-      };
-   
-    // const urediKnjigu =(id) =>{
-    //   knjigaAkcije.osvjezi(id, modKnjiga).then((response) => {
-    //     console.log(response);
-    //     postaviKnjigu(knjiga.map((p) => (p.id !== id ? p : response.data)));
-    //   });
-    // }
-   
-    	
-    const loginForma=()=>{
-      return(
-        <LoginForma/>
-      )
-    }
-    
-    const novaKnjiga=()=>(
-      <NovaKnjiga
-        spremiKnjigu={novaKnjiga}
-        />
-    )
-    return(
+const App = ()=> {
+  const padding = { padding: 5, color: '#bdbdbd' };
+  return(
+    <Router>
       <div>
+      <Navbar bg="dark" variant="dark">
+            <Container>
+              <Navbar.Brand href="/">Knjiznica</Navbar.Brand>
+              <Nav className="mr-auto">
+                <Link style={padding} to="/">Home</Link>
+                <Link style={padding} to="/login">Log In</Link>
+                <Link style={padding} to="/knjiga">Nova knjiga</Link>
+                <Link style={padding} to="/Knjige">Popis svih knjiga</Link>
+                <Link style={padding} to="/Logout">Log Out</Link>
+              </Nav>
+            </Container>
+          </Navbar>
 
-        
-          <h1>Knjige</h1>
-          {korisnik === null ? (
-            loginForma()
-          ) : (
-            <div>
-              <p>Prijavljeni ste kao {korisnik.ime}</p>
-              {novaKnjiga()}
-            </div>
-      )}
-     
-          
-          <table>
-              <thead>
-                  <tr>
-                      <th className="th">POSUDENA</th>
-                      <th className="th">GRADA</th>
-                      <th className="th">NASLOV</th>
-                      <th className="th">AUTOR</th>
-                      
-                  </tr>
-              </thead>
-              <tbody>
-                  {knjiga.map(k=>
-                    <Knjiga 
-                    key={k.id} 
-                    //knjiga={k}
-                    posudena={k.posudeno} 
-                    grada={k.grada} 
-                    naslov={k.naslov} 
-                    autor={k.autor}
-                    
-                    brisi={()=>brisiKnjigu(k.id)}
-                    //urediKnjigu={()=>urediKnjigu(k.id)}
-                    
-                    />)}
-              </tbody>
-             
-          </table>
-          
-         
+        <Routes>
+          <Route path='/' element={<Home/>}></Route>
+          <Route path='/Login' element={<Login/>}>
+          </Route>
+          <Route path='/knjiga' element={<Knjiga/>}>
+          </Route>
+          <Route path='/Knjige' element={<Knjige/>}>
+          </Route>
+          <Route path='/Logout' element={<Logout/>}></Route>
+          <Route element={<NotFound/>}></Route>
+        </Routes>
       </div>
+    </Router>
   )
 }
 

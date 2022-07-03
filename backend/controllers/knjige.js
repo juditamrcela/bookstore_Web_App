@@ -62,50 +62,61 @@ knjigeRouter.get('/', async (req, res) => {
 })
 
 //dohvacanje jednog
-knjigeRouter.get('/:id', (req, res, next) => {
-    Knjiga.findById(req.params.id)
-      .then(knjiga => {
-        if (knjiga) {
-          res.json(knjiga)
-        } else {
-          res.status(404).end()
-        }
-  
-      })
-      .catch(err => next(err))
+knjigeRouter.get('/:id', async (req, res, next) => {
+  const token=dohvatiToken(req)
+  const dekodiraniToken=jwt.verify(token,process.env.SECRET)
+  if(!token || !dekodiraniToken.id){
+    return res.status(401).json({error:"Neispravni token"})
+  }
+  const korisnik = await Korisnik.findById(dekToken.id)
+  const id = req.params.id
+  var k =await Knjiga.findById(id);
+    if(k && String(k.korisnik)===String(korisnik_.id)){
+      res.status(200).json(k).end()
+    }
+    else{
+      res.status(404).end()
+    }
+    
   })
-
   knjigeRouter.delete('/:id', async (req, res) => {
-    const token=dohvatiToken(req)
-
-    const dekodiraniToken=jwt.verify(token,process.env.SECRET)
-    if(!token || !dekodiraniToken.id){
-      return res.status(401),json({error:"Neispravni token"})
+    const token = dohvatiToken(req)
+    const id = req.params.id
+    const dekToken = jwt.verify(token, process.env.SECRET)
+    if (!token || !dekToken.id){
+      return res.status(401).json({error: 'Neispravni token'})
     }
     //pronaden u bazi
-    
-  const rez = await Knjiga.findOneAndDelete({_id:  mongoose.Types.ObjectId(req.params.id) ,korisnik: mongoose.Types.ObjectId(dekodiraniToken.id) })
-  console.log(rez)
-  if(rez)
-    res.send(rez)
-  else
-    res.status(204).send({message: "Ne postoji traženi podatak"})
-    /*Knjiga.findByIdAndRemove(req.params.id)
-      .then(result => {
-        res.status(204).end()
-      })
-      .catch(err => next(err))*/
+    const korisnik = await Korisnik.findById(dekToken.id)
+    const originalniPodatak = await Knjiga.findById(id)
+    if (String(korisnik._id) !== String(originalniPodatak.korisnik)) {
+        return res.status(401).json({ error: "niste autor podatka" })
+    }
+
+    //brisi
+    await Knjiga.findByIdAndRemove(id)
+
+    //brisi i id iz korisnikove liste podataka
+    korisnik.podaci = korisnik.knjige.filter(p => String(p) != String(originalniPodatak._id))
+    await korisnik.save()
+
+    res.status(204).end()
   })
   
   knjigeRouter.put('/:id', (req, res) => {
     const podatak = req.body
     const id = req.params.id
-  
+    
     const knjiga = new Knjiga({
         posudeno: new Date(),
+        vracanje: new Date(),
         grada: podatak.grada,
         naslov:podatak.naslov,
-        autor: podatak.autor
+        autor: podatak.autor,
+        produziti: podatak.produziti,
+        korisnik:logKorisnik._id
+       
+        
       })
   
       Knjiga.findByIdAndUpdate(id,knjiga, {new: true})
@@ -129,13 +140,27 @@ knjigeRouter.get('/:id', (req, res, next) => {
     console.log(logKorisnik)
     const knjiga = new Knjiga({
         posudeno: new Date(),
+        vracanje: new Date(),
         grada: podatak.grada,
         naslov:podatak.naslov,
         autor: podatak.autor,
+        produziti: podatak.produziti,
         korisnik:logKorisnik._id
+        
+        
+        
     })
     console.log(knjiga)
-   
+    if(!podatak.naslov){
+      return res.status(400).json({
+        error:'Nedostaje naslov knjige'
+      })
+    }
+    if(!podatak.autor){
+      return res.status(400).json({
+        error:'Nedostaje autor'
+      })
+    }
     const spremljenaKnjiga=await knjiga.save()
     console.log(spremljenaKnjiga)
     logKorisnik.knjige=logKorisnik.knjige.concat(spremljenaKnjiga._id)

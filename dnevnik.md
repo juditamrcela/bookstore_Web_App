@@ -42,3 +42,17 @@ Pocetak | Kraj
 ### Kratki opis promjena
 Autentikacija korisnika
 
+## 27.06.2022.
+Pocetak | Kraj
+------- | ----
+10:00   | 17:30
+### Kratki opis promjena
+Popravak backenda i frontenda
+
+## 02.07.2022.
+Pocetak | Kraj
+------- | ----
+16:00   | 20:00
+### Kratki opis promjena
+Dodane rute i ispravak na frontendu
+

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-
+import knjigeAkcije from '../services/knjige.js';
 
 const NovaKnjiga = (props) => {
     const [unosGrada, postaviGrada] = useState("")
@@ -18,13 +18,13 @@ const NovaKnjiga = (props) => {
     const novaKnjiga = (e) => {
         e.preventDefault()
         var datum=new Date()
-        props.spremiKnjigu({
+       const noviObjekt={
             posudeno:datum.getFullYear()+'-'+datum.getMonth()+'-'+datum.getDate(),
             grada: unosGrada,
             naslov: unosNaslova,
             autor:unosAutora
-        })
-        
+        }
+        knjigeAkcije.stvori(noviObjekt)
         postaviAutora('')
         postaviGrada('')
         postaviNaslov('')
@@ -36,9 +36,9 @@ const NovaKnjiga = (props) => {
         
         <select  name="knjige_grada" id="grada">
             <option value="Odaberi" onChange={promjenaGrade} >Odaberi gradu...</option>
-            <option value="MarkaMarulica" onChange={promjenaGrade}>Gradska knjiznica Marka Marulica</option>
-            <option value="Sinj" onChange={promjenaGrade}>Gradska knjiznica Sinj</option>
-            <option value="Solin" onChange={promjenaGrade}>Gradska knjiznica Solin</option>
+            <option value="Gradska knjiznica Marka Marulica" onChange={promjenaGrade}>Gradska knjiznica Marka Marulica</option>
+            <option value="Gradska knjiznica Sinj" onChange={promjenaGrade}>Gradska knjiznica Sinj</option>
+            <option value="Gradska knjiznica Solin" onChange={promjenaGrade}>Gradska knjiznica Solin</option>
             
         </select>
         <input placeholder="...unesi Naslov Knjige" value={unosNaslova} onChange={promjenaNaslov} />

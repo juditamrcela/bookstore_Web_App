@@ -3,7 +3,7 @@ content-Type: application/json
 
 {
     "posudeno": " ",
-    "grada": "Gradska knjiznica Marka Marulica",
+    "grada": "Gradska knjiznica Sinj",
     "naslov": "The peoplewatching",
     "autor": "Desmond Morris",
     "korisnik":"6223882cbe4909e3ad9f8d49"
