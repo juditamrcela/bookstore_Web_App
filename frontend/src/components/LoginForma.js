@@ -56,7 +56,7 @@ const LoginForma = () =>{
          <Button className="button-primary" type="submit" id="loginButton">Prijava</Button>
          
        </Form>):(
-         <h2>Dobro došli {username} </h2>
+         <h2>Dobro došli {korisnik.ime} </h2>
        )}
  </div>
 )}

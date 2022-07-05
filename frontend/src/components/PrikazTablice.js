@@ -61,7 +61,7 @@ const PrikazTablice = ()=> {
      const urediKnjigu =(id) =>{
        const nadiKnjigu=knjiga.find(k=>k.id===id)
        let prijeProduzi=nadiKnjigu.produziti;
-       let novaProduziti=prompt('Produziti {nadiKnjigu.produziti} :?')
+       let novaProduziti=prompt(`Produziti ${nadiKnjigu.naslov}:?`)
        novaProduziti=novaProduziti.toLowerCase;
        novaProduziti=novaProduziti==="da" ? true : false;
        const modKnjiga ={
